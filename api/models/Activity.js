@@ -25,13 +25,13 @@ module.exports = {
         description: {
             type: 'string'
         },
-        fase: {
-            collection: 'Fase',
+        activityHasFase: {
+            collection: 'ActivityHasFase',
             via: 'activity'
         },
-        concept: {
-            collection: 'Concept',
-            via: 'activity'
+        activityHasConcept: {
+            collection: 'ActivityHasConcept',
+            via:'activity'
         }
     }
 };

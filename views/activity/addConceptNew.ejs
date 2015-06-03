@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-10 col-md-offset-1">
+            <legend><h2>Crear Plan de Guardería</h2></legend>
+            <form role="form" action="/activity/addConcept" method="POST">
+                <div class= "form-group">
+                    <input type="text" name="concept" value="" placeholder="Concepto" required>
+                </div>
+                <div class= "form-group">
+                    <input type="hidden" name="activity" value="<%= activity.id %>" placeholder="Actividad" required>
+                </div>
+                <button type="submit" class="btn btn-success btn-lg  pull-right" >Guardar</button>
+                
+            </form>
+        </div>
+    </div>
+</div>

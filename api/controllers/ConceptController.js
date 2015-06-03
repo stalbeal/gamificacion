@@ -6,6 +6,27 @@
  */
 
 module.exports = {
-	
+    new: function(req, res) {
+        res.view();
+    },
+    create: function(req, res) {
+        var concept = {
+            name: req.param('name'),
+            description: req.param('description')
+        }
+        Concept.create(concept, function activityCreated(err, concept) {
+            if (err)
+                return next(err);
+            res.redirect('/concept/show?id=' + concept.id);
+        });
+    },
+    show: function(req, res) {
+        Concept.findOne(req.param('id'), function activityFounded(err, concept) {
+            if (err)
+                return next(err);
+            res.view({
+                concept: concept
+            });
+        })
+    }
 };
-
