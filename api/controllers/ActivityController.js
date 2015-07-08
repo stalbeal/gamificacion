@@ -19,7 +19,7 @@ module.exports = {
         Activity.create(activity, function activityCreated(err, activity) {
             if (err)
                 return next(err);
-            res.redirect('/activity/show?id=' + activity.id);
+            res.redirect('/activity/show/' + activity.id);
         });
     },
     show: function(req, res) {
@@ -31,35 +31,83 @@ module.exports = {
             });
         })
     },
+    activityconcept: function(req, res, next) {
+
+        ActivityHasConcept.find({
+            activity: req.param('id')
+        }).populateAll().exec(function(err, activities) {
+            ActivityHasPhase.find({
+                activity: req.param('id')
+            }).populateAll().exec(function(err, phases) {
+                return res.view({
+                    activity: req.param('id'),
+                    activities: activities,
+                    phases: phases
+                });
+            });
+
+        });
+    },
     addConceptNew: function(req, res) {
-        res.view({activity: req.param('activity')});
+        Concept.find(function found(err, concepts) {
+            
+
+            res.view({
+                activity: req.param('id'),
+                concepts: concepts
+            });
+        });
+    },
+    addPhaseNew: function(req, res) {
+        Phase.find(function found(err, phases) {
+            // body...
+
+            return res.view({
+                activity: req.param('id'),
+                phases: phases
+            });
+        });
     },
     addConcept: function(req, res, next) {
         var activityHasConcept = {
             concept: req.param('concept'),
             activity: req.param('activity')
         }
+  
         ActivityHasConcept.create(activityHasConcept, function activityHasConceptCreated(err, aHC) {
             if (err)
                 return next(err);
-            console.log('actividad : ' + JSON.stringify(aHC));
 
-            Activity.findOne(aHC.activity, function activityFounded(err, activity) {
-                if (err)
-                    return next(err);
 
-                res.redirect('/activity/show?id=' + activity.id);
-            })
+
+            return res.redirect('/activity/activityconcept/' + req.param('activity'));
+
         });
 
 
-    }, mobileIndex: function  (req, res, next) {
-        Activity.find().populateAll().exec(function activitiesFounded (err, activities) {
-            if(err)
+    },
+    addPhase: function(req, res, next) {
+        var activityHasPhase = {
+            phase: req.param('phase'),
+            activity: req.param('activity')
+        }
+
+        ActivityHasPhase.create(activityHasPhase, function activityHasConceptCreated(err, aHF) {
+            if (err)
                 return next(err);
-            var response= {
+            return res.redirect('/activity/activityconcept/' + req.param('activity'));
+
+        });
+
+
+    },
+    mobileIndex: function(req, res, next) {
+        Activity.find().populateAll().exec(function activitiesFounded(err, activities) {
+            if (err)
+                return next(err);
+            var response = {
                 message: 600,
-                response:activities
+                response: activities
             }
             res.json(response);
         });

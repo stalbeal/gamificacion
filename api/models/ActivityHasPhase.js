@@ -11,8 +11,8 @@ module.exports = {
 
   		activity:{
   			model:'Activity'
-  		},fase: {
-  			model:'Fase'
+  		},phase: {
+  			model:'Phase'
   		}
 
   }

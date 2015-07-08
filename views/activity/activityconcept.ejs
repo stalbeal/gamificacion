@@ -1,0 +1,113 @@
+<style>
+	/* generic table styling */
+	
+	/* filter-table specific styling */
+	td.alt { background-color: #ffc; background-color: rgba(255, 255, 0, 0.2); }
+	/* special filter field styling for this example */
+	.input-filter-container { position: fixed; top: 1em; right: 1em; border: 2px solid #66f; background-color: #eef; padding: 0.5em; }
+</style>
+<script>
+$(document).ready(function() {
+	$('table').filterTable({ // apply filterTable to all tables on this page
+	inputSelector: '#input-filter'
+	});
+	
+
+	
+});
+</script>
+<div class="row">
+	<div class="col-md-3">
+		<p class="lead">Acciones</p>
+		<div class="list-group">
+			<a id="modal" href="/activity/addconceptnew/<%=activity%>" class="list-group-item active ">Agregar Concepto</a>
+			<a id="fase" href="/activity/addphasenew/<%=activity%>" class="list-group-item active open">Agregar Fase</a>
+			<a href="/activity/show/<%=activity%>" class="list-group-item active">Ver Actividad</a>
+			
+		</div>
+	</div>
+	<div class="col-md-9 ">
+		<legend>Conceptos de una Actividad</legend>
+		
+		<div class="col-sm-12" style="overflow: auto;  ">
+			<row>
+			<div class="col-md-4 col-md-offset-8">
+				
+				<label for="input-filter">Buscar:</label>
+				<input type="search" class="form-control" id="input-filter" size="10" placeholder="search">
+			</div>
+			</row>
+			<table id="table"   class="table table-striped" >
+				<thead >
+					<th width="20%">Concepto</th>
+					
+					<th width="20%" colspan="2" class="text-center">Acciones</th>
+				</thead>
+			</table>
+		</div>
+		<div class="col-sm-12" style="overflow: auto; height: 200px;">
+			<table id="table"  class="table table-striped" >
+				<%var m=0%>
+				<% _.each(activities, function(activity) { %>
+				<tr>
+					<%m++%>
+					<td width="20%"><%=activity.concept.name%></td>
+					
+					
+					<td width="20%" colspan="4">
+						<center><a href="/concept/show/<%=activity.concept.id%>" style="text-decoration: none; color: blue;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+						<a href="/activityhasconcept/destroy/<%=activity.concept.id%>" style="text-decoration: none; color: red;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+						
+						
+					
+					</center>
+				</td>
+			</tr>
+			
+			<%})%>
+		</table>
+	</div>
+
+		<legend>Fases de una Actividad</legend>
+		
+		<div class="col-sm-12" style="overflow: auto;  ">
+			<row>
+			<div class="col-md-4 col-md-offset-8">
+				
+				<label for="input-filter">Buscar:</label>
+				<input type="search" class="form-control" id="input-filter" size="10" placeholder="search">
+			</div>
+			</row>
+			<table id="table"   class="table table-striped" >
+				<thead >
+					<th width="20%">Fase</th>
+					
+					<th width="20%" colspan="2" class="text-center">Acciones</th>
+				</thead>
+			</table>
+		</div>
+		<div class="col-sm-12" style="overflow: auto; height: 200px;">
+			<table id="table"  class="table table-striped" >
+				<%var m=0%>
+				<% _.each(phases, function(phase) { %>
+				<tr>
+					<%m++%>
+					<td width="20%"><%=phase.phase.name%></td>
+					
+					
+					<td width="20%" colspan="4">
+						<center><a href="/phase/show/<%=phase.phase.id%>" style="text-decoration: none; color: blue;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+						<a href="/activityhasphase/destroy/<%=phase.phase.id%>" style="text-decoration: none; color: red;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+						
+						
+					
+					</center>
+				</td>
+			</tr>
+			
+			<%})%>
+		</table>
+	</div>
+	
+</div>
+</div>

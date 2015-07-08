@@ -2,23 +2,23 @@
 	<div class="col-md-3">
 		<p class="lead">Acciones</p>
 		<div class="list-group">
-			<a href="#" class="list-group-item active">Ver Conceptos</a>
+			<a href="/phasetype/" class="list-group-item active">Tipos de Fase</a>
 			<a href="#" class="list-group-item active">Editar</a>
 			<a href="#" class="list-group-item active">Eliminar</a>
 		</div>
 	</div>
 	<div class="col-md-9 ">
-		<legend>Concepto</legend>
+		<legend>Tipo de Fase</legend>
 		<div class="thumbnail">
 			<div class="caption-full">
 				<div class= "form-group">
-					<label>Identificador</label>
-					<p><%= concept.name %></p>
+					<label>Nombre</label>
+					<p><%= phaseType.name %></p>
 				</div>
 				<div class= "form-group">
 					<label>Descripción</label>
 					
-					<textarea type="text" style="border:0; background: white;" name="description" class="form-control"  rows="5" disabled="disabled"> <%= concept.description %></textarea>
+					<textarea type="text" style="border:0; background: white;" name="description" class="form-control"  rows="5" disabled="disabled"> <%= phaseType.description %></textarea>
 				</div>
 				
 			</div>

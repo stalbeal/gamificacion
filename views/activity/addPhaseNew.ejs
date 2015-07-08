@@ -2,16 +2,16 @@
     <div class="row clearfix">
         <div class="col-md-10 col-md-offset-1">
             <legend><h2>Agregar concepto</h2></legend>
-            <form role="form" action="/activity/addConcept" method="POST">
+            <form role="form" action="/activity/addPhase" method="POST">
                
                 <div class= "form-group">
-                   <select name="concept" class="form-control">
-                            <% _.each(concepts, function(concept) { %>
+                   <select name="phase" class="form-control">
+                            <% _.each(phases, function(phase) { %>
                             
-                            <option value="<%=concept.id%>"><%=concept.name%></option>
+                            <option value="<%=phase.id%>"><%=phase.name%></option>
                             <%})%>
                         </select>
-                        <input type="hidde" name="activity" value="<%=activity%>">
+                        <input type="hidden" name="activity" value="<%=activity %>">
                 </div>
                 <button type="submit" class="btn btn-success btn-lg  pull-right" >Guardar</button>
                 

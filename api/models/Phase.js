@@ -1,12 +1,15 @@
 /**
- * Activity.js
+ * Phase.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
+
 module.exports = {
+
     attributes: {
-        idNumber: {
+
+    	identifier: {
             type: 'string',
             required: true
         },
@@ -27,11 +30,11 @@ module.exports = {
         },
         activityHasPhase: {
             collection: 'ActivityHasPhase',
-            via: 'activity'
-        },
-        activityHasConcept: {
-            collection: 'ActivityHasConcept',
-            via:'activity'
+            via: 'phase'
+        },phaseType:{
+        	model:'PhaseType'
         }
+
+
     }
 };

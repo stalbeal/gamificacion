@@ -1,17 +1,47 @@
-<div class="row clearfix">
-	<div class="col-md-9 col-md-offset-2">
-		<blockquote>
-			<h5>Id: <%= activity.idNumber %></h6>
-			<h6>Nombre: <%= activity.name %> </h6>
-			<h6>Fecha de inicio: <%= activity.startDate %> </h6>
-			<h6>Fecha de finalización: <%= activity.endDate %> </h6>
-			<h6>Descripcion: <%= activity.description %> </h6>
-		</blockquote>
-			<form method="POST" action="/activity/addConceptNew">
-		<input type="hidden" name="activity" value="<%= activity.id %>">
-		<input type="submit" class="btn btn-default"  value="Agregar Concepto" placeholder="">
-	</form>
+<div class="row">
+	<div class="col-md-3">
+		<p class="lead">Acciones</p>
+		<div class="list-group">
+			<a href="#" class="list-group-item active">Ver Todas</a>
+			<a href="#" class="list-group-item">Category 2</a>
+			<a href="#" class="list-group-item">Category 3</a>
+		</div>
 	</div>
-
-
+	<div class="col-md-9 ">
+		<legend>Actividad</legend>
+		<div class="thumbnail">
+			<div class="caption-full">
+				
+				
+				<div class= "form-group">
+					<label>Identificador</label>
+					<p><%= activity.idNumber %></p>
+				</div>
+				<div class= "form-group">
+					<label>Nombre de Actividad</label>
+					<p><%= activity.name %></p>
+				</div>
+				<div class= "form-group">
+					<label>Fecha de inicio</label>
+					<p><%= activity.startDate %></p>
+				</div>
+				<div class= "form-group">
+					<label>Fecha de finalización</label>
+					<p><%= activity.endDate %></p>
+				</div>
+				<div class= "form-group">
+					<label>Descripción de la actividad</label>
+					
+					<textarea type="text" style="border:0; background: white;" name="description" class="form-control"  rows="5" disabled="disabled"><%= activity.description %></textarea>
+					
+				</div>
+				
+				
+				<form method="POST" action="/activity/activityconcept/<%= activity.id %>">
+					
+					<input type="submit" class="btn btn-primary pull-right"  value="Agregar Concepto" placeholder="">
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
