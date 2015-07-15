@@ -33,8 +33,11 @@ module.exports = {
             via: 'phase'
         },phaseType:{
         	model:'PhaseType'
-        }, activityHasQuestion:{
-            
+        }, phaseHasQuestion:{
+           collection:'PhaseHasQuestion',
+           via:'phase'
+        },concept:{
+            model:'Concept'
         }
 
 
