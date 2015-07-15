@@ -22,6 +22,10 @@ module.exports = {
         activityHasConcept: {
             collection: 'ActivityHasConcept',
             via: 'concept'
+        },
+        phases: {
+            collection: 'Phase',
+            via: 'concept'
         }
 
     }

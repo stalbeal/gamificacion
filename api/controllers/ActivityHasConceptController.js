@@ -6,6 +6,17 @@
  */
 
 module.exports = {
-	
-};
 
+    activityconcept: function(req, res, next) {
+
+        ActivityHasConcept.find({
+            activity: req.param('id')
+        }).populateAll().exec(function(err, activities) {
+
+            return res.json(activities);
+
+
+        });
+    }
+
+};

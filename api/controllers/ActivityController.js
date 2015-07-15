@@ -102,14 +102,33 @@ module.exports = {
 
     },
     mobileIndex: function(req, res, next) {
-        Activity.find().populateAll().exec(function activitiesFounded(err, activities) {
-            if (err)
-                return next(err);
-            var response = {
-                message: 600,
-                response: activities
+        ActivityHasConcept.find().populateAll().exec(function(err, activitiesHasConcept) {
+
+            var act = {};
+            var aux = {};
+            var conceptAux = [];
+            var activityHC;
+            for (var i = 0; i < activitiesHasConcept.length; i++) {
+                activityHC = activitiesHasConcept[i];
+                console.log(activityHC);
+                if (act[activityHC.activity.id] != null) {
+                    aux = act[activityHC.activity.id];
+                    aux.concepts.push(activityHC.concept);
+                } else {
+                    conceptAux = [];
+                    conceptAux.push(activityHC.concept);
+                    aux = {
+                        activity: activityHC.activity,
+                        concepts: conceptAux
+                    };
+                    act[activityHC.activity.id] = aux;
+
+                }
             }
-            res.json(response);
+
+            return res.json(Response.resJson('600',act));
+
+
         });
     }
 };
