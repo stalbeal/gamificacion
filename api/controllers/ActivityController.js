@@ -36,21 +36,27 @@ module.exports = {
         ActivityHasConcept.find({
             activity: req.param('id')
         }).populateAll().exec(function(err, activities) {
-            ActivityHasPhase.find({
+            //ActivityHasPhase.find({
+            //   activity: req.param('id')
+            //}).populateAll().exec(function(err, phases) {
+            Phase.find({
                 activity: req.param('id')
             }).populateAll().exec(function(err, phases) {
+
+
                 return res.view({
                     activity: req.param('id'),
                     activities: activities,
                     phases: phases
                 });
             });
+            //});
 
         });
     },
     addConceptNew: function(req, res) {
         Concept.find(function found(err, concepts) {
-            
+
 
             res.view({
                 activity: req.param('id'),
@@ -73,7 +79,7 @@ module.exports = {
             concept: req.param('concept'),
             activity: req.param('activity')
         }
-  
+
         ActivityHasConcept.create(activityHasConcept, function activityHasConceptCreated(err, aHC) {
             if (err)
                 return next(err);
@@ -86,6 +92,7 @@ module.exports = {
 
 
     },
+    //ya no va
     addPhase: function(req, res, next) {
         var activityHasPhase = {
             phase: req.param('phase'),
@@ -126,7 +133,7 @@ module.exports = {
                 }
             }
 
-            return res.json(Response.resJson('600',act));
+            return res.json(Response.resJson('600', act));
 
 
         });

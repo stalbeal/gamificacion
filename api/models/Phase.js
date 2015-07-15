@@ -9,7 +9,7 @@ module.exports = {
 
     attributes: {
 
-    	identifier: {
+        identifier: {
             type: 'string',
             required: true
         },
@@ -25,19 +25,25 @@ module.exports = {
             type: 'string',
             required: true
         },
+        activity: {
+            type: 'string'
+        },
         description: {
             type: 'string'
         },
         activityHasPhase: {
             collection: 'ActivityHasPhase',
             via: 'phase'
-        },phaseType:{
-        	model:'PhaseType'
-        }, phaseHasQuestion:{
-           collection:'PhaseHasQuestion',
-           via:'phase'
-        },concept:{
-            model:'Concept'
+        },
+        phaseType: {
+            model: 'PhaseType'
+        },
+        concept: {
+            model: 'Concept'
+        },
+        question: {
+            collection: 'Question',
+            via: 'phase'
         }
 
 

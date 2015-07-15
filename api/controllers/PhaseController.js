@@ -7,12 +7,25 @@
 
 module.exports = {
     new: function(req, res, next) {
+        var params = req.param('id').split(';');
+        console.log(params);
         PhaseType.find(function recordsFound(err, phaseTypes) {
-            if (err) {
-                next(err);
-            }
-            return res.view({
-                phaseTypes: phaseTypes
+
+            Concept.findOne({
+                id: params[0]
+            }).exec(function(err, concept) {
+                if (err) {
+                    next(err);
+                }
+
+                if (Response.view(concept, next)) {
+                    return res.view({
+                        phaseTypes: phaseTypes,
+                        concept: concept,
+                        activity: params[1]
+
+                    });
+                }
             });
         });
 
@@ -24,23 +37,46 @@ module.exports = {
             startDate: req.param('startDate'),
             endDate: req.param('endDate'),
             description: ValidateFields.isNull(req.param('description')),
-            phaseType: req.param('phaseType')
+            phaseType: req.param('phaseType'),
+            concept: req.param('concept'),
+            activity: req.param('activity')
         }
         Phase.create(faseObj, function created(err, phase) {
             if (err)
                 return next(err);
-            res.redirect('/phase/show/' + phase.id);
+
+
+            /* var activityHasPhase = {
+                phase: phase.id,
+                activity: req.param('activity')
+            }
+
+            ActivityHasPhase.create(activityHasPhase, function activityHasConceptCreated(err, aHF) {
+                if (err)
+                    return next(err);*/
+            return res.redirect('/phase/show/' + phase.id);
+
+            //});
+
         });
     },
     show: function(req, res, next) {
         Phase.findOne({
             id: req.param('id')
         }).populateAll().exec(function recordsFound(err, phase) {
-            if (err) {
-                next(err);
-            }
-            return res.view({
-                phase: phase
+
+            Question.find({
+                phase: req.param('id')
+            }).exec(function(err, questions) {
+                if (err) {
+                    next(err);
+                }
+                console.log(phase);
+                return res.view({
+                    phase: phase,
+                    questions: questions
+                });
+
             });
         });
 

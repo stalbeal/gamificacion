@@ -23,6 +23,8 @@ $(document).ready(function() {
 			<a id="modal" href="/activity/addconceptnew/<%=activity%>" class="list-group-item active ">Agregar Concepto</a>
 			<a id="fase" href="/activity/addphasenew/<%=activity%>" class="list-group-item active open">Agregar Fase</a>
 			<a href="/activity/show/<%=activity%>" class="list-group-item active">Ver Actividad</a>
+
+			<% var activityToSend=activity%>
 			
 		</div>
 	</div>
@@ -55,10 +57,9 @@ $(document).ready(function() {
 					
 					
 					<td width="20%" colspan="4">
-						<center><a href="/concept/show/<%=activity.concept.id%>" style="text-decoration: none; color: blue;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-						<a href="/activityhasconcept/destroy/<%=activity.concept.id%>" style="text-decoration: none; color: red;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-						
-						
+						<center><a href="/concept/show/<%=activity.concept.id%>" title="Ver concepto" style="text-decoration: none; color: blue;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+						<a href="/activityhasconcept/destroy/<%=activity.concept.id%>" title="Eliminar Concepto" style="text-decoration: none; color: red;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+						<a href="/phase/new/<%=activity.concept.id%>;<%=activityToSend%>" title="Agregar Fase al Concepto"  style="text-decoration: none; color: green;"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span></a>
 					
 					</center>
 				</td>
@@ -81,6 +82,7 @@ $(document).ready(function() {
 			<table id="table"   class="table table-striped" >
 				<thead >
 					<th width="20%">Fase</th>
+					<th width="20%">Concepto</th>
 					
 					<th width="20%" colspan="2" class="text-center">Acciones</th>
 				</thead>
@@ -92,12 +94,13 @@ $(document).ready(function() {
 				<% _.each(phases, function(phase) { %>
 				<tr>
 					<%m++%>
-					<td width="20%"><%=phase.phase.name%></td>
+					<td width="20%"><%=phase.name%></td>
+					<td width="20%"><%=phase.concept.name%></td>
 					
 					
 					<td width="20%" colspan="4">
-						<center><a href="/phase/show/<%=phase.phase.id%>" style="text-decoration: none; color: blue;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-						<a href="/activityhasphase/destroy/<%=phase.phase.id%>" style="text-decoration: none; color: red;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+						<center><a href="/phase/show/<%=phase.id%>" style="text-decoration: none; color: blue;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+						<a href="/activityhasphase/destroy/<%=phase.id%>" style="text-decoration: none; color: red;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 						
 						
 					

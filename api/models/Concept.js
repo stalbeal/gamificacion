@@ -15,10 +15,6 @@ module.exports = {
         description: {
             type: 'string'
         },
-        questions: {
-            collection: 'Question',
-            via: 'concept'
-        },
         activityHasConcept: {
             collection: 'ActivityHasConcept',
             via: 'concept'

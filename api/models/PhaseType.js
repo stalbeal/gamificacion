@@ -14,6 +14,8 @@ module.exports = {
   	},
   	description:{
   		type:'string'
+  	},phase:{
+  		model:'Phase'
   	}
   }
 };

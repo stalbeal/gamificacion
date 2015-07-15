@@ -2,9 +2,11 @@
 	<div class="col-md-3">
 		<p class="lead">Acciones</p>
 		<div class="list-group">
-			<a href="/phase/" class="list-group-item active">Ver Todas</a>
-			<a href="#" class="list-group-item">Category 2</a>
-			<a href="#" class="list-group-item">Category 3</a>
+			<a href="/phase/" class="list-group-item active">Ver todas</a>
+			<a href="/activity/activityconcept/<%=phase.activity%>" class="list-group-item active">Volver</a>
+			<a href="/phase/new/<%=phase.concept.id%>;<%=phase.activity%>" class="list-group-item active">Agregar otra fase al concepto</a>
+			<a href="/question/new/<%=phase.id%>" class="list-group-item active">Agregar pregunta</a>
+
 		</div>
 	</div>
 	<div class="col-md-9 ">
@@ -40,8 +42,49 @@
 					
 				</div>
 				
+				
 			
 			</div>
 		</div>
+
+		<legend>Preguntas de la Fase</legend>
+		
+		<div class="col-sm-12" style="overflow: auto;  ">
+			<row>
+			<div class="col-md-4 col-md-offset-8">
+				
+				<label for="input-filter">Buscar:</label>
+				<input type="search" class="form-control" id="input-filter" size="10" placeholder="search">
+			</div>
+			</row>
+			<table id="table"   class="table table-striped" >
+				<thead >
+					<th width="20%">Enunciado</th>
+					
+					
+					<th width="20%" colspan="2" class="text-center">Acciones</th>
+				</thead>
+			</table>
+		</div>
+		<div class="col-sm-12" style="overflow: auto; height: 200px;">
+			<table id="table"  class="table table-striped" >
+				<%var m=0%>
+				<% _.each(questions, function(question) { %>
+				<tr>
+					<%m++%>
+					<td width="20%"><%=question.statement%></td>
+					
+					
+					<td width="20%" colspan="4">
+						<center><a href="/question/show/<%=question.id%>" style="text-decoration: none; color: blue;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+						<a href="/activityhasphase/destroy/<%=question.id%>" style="text-decoration: none; color: red;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+					
+					</center>
+				</td>
+			</tr>
+			
+			<%})%>
+		</table>
+	</div>
 	</div>
 </div>

@@ -10,16 +10,18 @@
 	
 	<div class="col-md-9 ">
 		
-		<legend>Nueva Fase</legend>
+		<legend>Agregar fase para el concepto <%=concept.name%></legend>
 		
 		<form method="POST" action="/phase/create" class="form-container">
 			
 			<div class= "form-group">
 				<label>Identificador</label>
 				<input type="text" name="identifier" class="form-control" placeholder="Identificador" required>
+				<input type="hidden" name="concept" class="form-control" value="<%=concept.id%>" required>
+				<input type="hidden" name="activity" class="form-control" value="<%=activity%>" required>
 			</div>
 			<div class= "form-group">
-				<label>Nombre de Fase</label>
+				<label>Nombre de la Fase</label>
 				<input type="text" name="name" class="form-control" placeholder="Nombre" required>
 			</div>
 			<div class= "form-group">
@@ -42,7 +44,7 @@
 			</div>
 			
 			<div class= "form-group">
-				<label>Descripción de la actividad</label>
+				<label>Descripción</label>
 				<textarea type="text" name="description" class="form-control" placeholder="Descripción" required></textarea>
 			</div>
 			<div class= "form-group">
