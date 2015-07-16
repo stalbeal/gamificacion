@@ -80,6 +80,19 @@ module.exports = {
             });
         });
 
+    },
+    getPhasesActivity: function(req, res) {
+        var params = req.params.all();
+        Phase.find({
+            activity: params.activity,
+            concept: params.concept
+        }).populateAll().exec(function(err, phases){
+            if(err){
+                return res.json(Response.resJson(err.status, null));
+            }
+
+            return res.json(Response.resJson('600', phases));
+        });
     }
 
 };
