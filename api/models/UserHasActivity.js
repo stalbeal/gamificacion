@@ -19,10 +19,10 @@ module.exports = {
         concept: {
             type: 'string',
             required: true
-        }/*,
-        uncompletedPhases: {
-            type: 'integer'
-        }*/
+        }, userHasPhase:{
+        	collection:'UserHasPhase',
+        	via:'userHasActivity'
+        }
 
     }
 };

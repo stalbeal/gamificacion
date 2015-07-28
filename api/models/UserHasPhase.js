@@ -17,6 +17,8 @@ module.exports = {
         }, reply:{
         	collection:'Reply',
         	via:'userHasPhase'
+        }, userHasActivity:{
+        	model:'UserHasActivity'
         }
 
     }

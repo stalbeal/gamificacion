@@ -22,7 +22,8 @@ module.exports = {
                 return res.json(Response.resJson(err.status, null));
             }
 
-
+            //Si el usuario no ha completado ninguna fase de la actividad
+            //se crea un nuevo registro
             if (uHAFounded == null || uHAFounded == undefined) {
                 var objUHA = {
                     user: params.loggedUser,
@@ -37,7 +38,8 @@ module.exports = {
 
                     var objUHP = {
                         phase: params.phase,
-                        user: params.loggedUser
+                        user: params.loggedUser,
+                        userHasActivity: uHA.id
                     }
                     UserHasPhase.create(objUHP, function(err, uHP) {
                         if (err) {
@@ -73,7 +75,8 @@ module.exports = {
 
                 var objUHP = {
                     phase: params.phase,
-                    user: params.loggedUser
+                    user: params.loggedUser,
+                    userHasActivity: uHAFounded.id
                 }
                 UserHasPhase.create(objUHP, function(err, uHP) {
                     if (err) {
