@@ -1,0 +1,33 @@
+<br><br>
+<div class="container">
+	<div class="col-md-6 col-md-offset-3">
+	<div class="contact-form">
+	<div class="jumbotron">
+		<% if(flash && flash.err) { %>
+		<div class="status alert alert-success" >
+			<% var m=JSON.stringify(flash.err) %>
+			<p><%=m%></p>
+		</div>
+		<% } %>
+
+
+			
+			<h3 class="form-signin">Ingresar a egoCity</h3>
+			
+			<form action="/session/create" method="POST" class="form-signin">
+				
+				<label for="user">Usuario</label>
+				<input type="text" class="form-control" name="username" placeholder="username">
+				<label for="psw">Contraseña</label>
+				<input type="password" class="form-control" name="password" placeholder="password">
+				<br>
+				<button type="submit" class="btn btn-primary   pull-right" >Iniciar sesión</button>
+				<input type="hidden" value="<%= _csrf %>">
+				<br>
+				<a href="/session/forgetpassword">¿No puedes acceder a tu cuenta?</a>
+				<br>
+			</form>
+		</div>
+		
+	</div>
+</div>

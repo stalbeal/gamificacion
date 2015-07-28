@@ -1,0 +1,150 @@
+<div class="row clearfix">
+	<div class="col-md-9 col-md-offset-2">
+		
+		<div class="contact-form">
+			<legend > Usuario</legend>
+			<!-- <div class="status alert alert-success" ></div>-->
+			<div class="row">
+				<div class="col-md-7 ">
+					<!-- primera columna-->
+					
+					
+					<div class="row">
+						<div class="col-xs-5">
+							<label  >Nombre Completo  </label>
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-8">
+							<p><%=user.fullname%> </p>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-xs-5">
+							<label  >Nombre de Usuario  </label>
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-8">
+							<p><%=user.username%> </p>
+						</div>
+					</div>
+					<div class="row">
+						
+						<div class="col-xs-5">
+							<label >Email  </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-8">
+							<p><%=user.email%> </p>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-xs-5">
+							<label  >Género  </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-8">
+							<p><%=user.genre.name%></p>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-5">
+							<label   >Fecha de Nacimiento</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-9">
+							<p><%=user.birthDate%></p>
+						</div>
+					</div>					
+
+					<div class="row">
+						<div class="col-xs-8">
+							<label  >Descripción  </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-8">
+							
+							<textarea type="text" style="border:0; background: white;" name="description" class="form-control"  rows="5" disabled="disabled"><%=user.description%></textarea>
+						</div>
+					</div>
+				</div>
+				<!--fin primera columana-->
+				<div class="col-md-4 ">
+					
+					<div class="row">
+						<div class="col-xs-5">
+							<label  >Peso  </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-8">
+							<p><%=user.weight%></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-5">
+							<label  >Estatura  </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-8">
+							<p><%=user.height%></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-5">
+							<label  >Teléfono  </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-8">
+							<p><%=user.phoneNumber%></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-5">
+							<label  >Celular  </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-8">
+							<p><%=user.mobile%></p>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-xs-5">
+							<label  >Dirección  </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-8">
+							<p><%=user.address%> </p>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="btn-group-vertical col-xs-7">
+							<!--
+							<a href="/user/destroy/<%=user.id%>" class="btn btn-default pull-right ">Eliminar</a>
+							-->
+							<a href="/user/index" class="btn btn-default pull-right ">Ver todos</a>
+						</div>
+					</div>
+					
+					
+					<!--fin columna--></div>
+					
+				</div>
+			</div>
+		</div>

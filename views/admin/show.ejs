@@ -1,0 +1,87 @@
+
+	<div class="row clearfix">
+		<div class="col-md-9 col-md-offset-2">
+			
+			
+				<legend >Administrador</legend>
+				<!-- <div class="status alert alert-success" ></div>-->
+		<div class="row">
+
+			<div class="col-xs-8">
+					<div class="row">
+						<div class="col-xs-4">
+							<label  >Nombre Completo  </label>
+						</div>
+						
+						</div>
+						<div class="row">						
+						<div class="form-group col-xs-8">
+							<p><%=admin.fullname%> </p>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-xs-5">
+							<label  >Nombre de Usuario  </label>
+						</div>
+						
+						</div>
+						<div class="row">						
+						<div class="form-group col-xs-8">
+							<p><%=admin.username%> </p>
+						</div>
+					</div>
+					<div class="row">
+						
+						<div class="col-xs-1">
+							<label >Email  </label>
+						</div>
+						</div>
+						<div class="row">	
+						<div class="form-group col-xs-8">
+							<p><%=admin.email%> </p>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-xs-1">
+							<label  >Teléfono  </label>
+						</div>
+						</div>
+						<div class="row">	
+						<div class="form-group col-xs-8">
+							<p><%=admin.phoneNumber%></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-1">
+							<label  >Celular  </label>
+						</div>
+						</div>
+						<div class="row">	
+						<div class="form-group col-xs-8">
+							<p><%=admin.mobile%></p>
+						</div>
+					</div>
+
+	</div><!--fin columna-->
+				<div class="col-xs-2">	
+					
+					<div class="row">
+					<div class="btn-group-vertical">
+							<a href="/admin/edit/<%=admin.id%>" class="btn btn-primary pull-right ">Editar</a>					
+							<a href="/admin/destroy/<%=admin.id%>" class="btn btn-primary pull-right ">Eliminar</a>
+											
+							<a href="/admin/index" class="btn btn-primary pull-right ">Ver todos</a>
+							<a href="/admin/passwordnew/<%=admin.id%>" class="btn btn-primary pull-right ">Cambiar Contraseña</a>
+						</div>
+					</div>
+				</div><!--fin 2da columna-->
+
+	</div><!--fin row-->
+				
+			
+		</div>
+	</div>
+

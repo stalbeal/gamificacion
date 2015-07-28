@@ -33,7 +33,13 @@
 				</div>
 				<div class= "form-group">
 					<label>Tipo de fase</label>
-					<p><%= phase.phaseType.name %></p>
+					<%if(phase.phaseType=="0"){%>
+					<p>Responder Preguntas</p>
+					<%}else if(phase.phaseType=="1"){%>
+					<p>Formular Preguntas</p>
+					<%}else if(phase.phaseType=="2"){%>
+					<p>Responder Preguntas de los mismos estudiantes</p>
+					<%}%>
 				</div>
 				<div class= "form-group">
 					<label>Descripción</label>

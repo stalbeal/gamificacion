@@ -1,0 +1,68 @@
+
+	<div class="row clearfix">
+		<div class="col-md-9 col-md-offset-2">
+			
+			<div class="contact-form">
+				<legend >Editar Administrador</legend>
+				<!-- <div class="status alert alert-success" ></div>-->
+				<form id="main-contact-form" class="contact-form row" name="contact-form" action="/admin/update/<%=admin.id%>" method="post" >
+
+					<div class="row">
+						<div class="col-xs-4">
+							<label  >Nombre Completo  </label>
+						</div>
+						
+						</div>
+						<div class="row">						
+						<div class="form-group col-xs-8">
+							<input type="text" class="form-control" name="fullname" value="<%=admin.fullname%>" required="required">
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						
+						<div class="col-xs-3">
+							<label >E-mail  </label>
+						</div>
+						</div>
+						<div class="row">	
+						<div class="form-group col-xs-8">
+							<input type="email" class="form-control" name="email" value="<%=admin.email%> " required="required">
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-xs-3">
+							<label  >Teléfono  </label>
+						</div>
+						</div>
+						<div class="row">	
+						<div class="form-group col-xs-8">
+							<input type="text" class="form-control" name="phoneNumber" value="<%=admin.phoneNumber%>" >
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3">
+							<label  >Celular  </label>
+						</div>
+						</div>
+						<div class="row">	
+						<div class="form-group col-xs-8">
+							<input type="text" class="form-control" name="mobile" value="<%=admin.mobile%>" >
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="form-group col-xs-8">
+							<input type="submit" name="submit" class="btn btn-primary pull-right" value="Guardar">
+						</div>
+					</div>
+					</form>
+				
+			</div>
+		</div>
+	</div>
+

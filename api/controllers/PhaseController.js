@@ -9,7 +9,7 @@ module.exports = {
     new: function(req, res, next) {
         var params = req.param('id').split(';');
         console.log(params);
-        PhaseType.find(function recordsFound(err, phaseTypes) {
+       
 
             Concept.findOne({
                 id: params[0]
@@ -20,13 +20,12 @@ module.exports = {
 
                 if (Response.view(concept, next)) {
                     return res.view({
-                        phaseTypes: phaseTypes,
                         concept: concept,
                         activity: params[1]
 
                     });
                 }
-            });
+           
         });
 
     },
