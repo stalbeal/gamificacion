@@ -175,10 +175,12 @@ module.exports = {
                     var userLogin = {
                         user: user.id
                     }
+                    console.log(user);
 
                     UserLogin.create(userLogin, function userLoginCreated(err, login) {
                         if (err) {
-                            return res.json(Response.resJson(err.status, null));
+                            console.log(err);
+                            //return res.json(Response.resJson(err.status, null));
                         }
 
                         /*  User.update({

@@ -7,34 +7,59 @@
 
 module.exports = {
 
-
-    create: function(req, res, next) {
+    create: function(req, res) {
 
         var params = req.params.all();
-        Phase.count({
+        //console.log(params);
+        var objUHA = {
+            user: params.loggedUser,
+            activity: params.activity,
             concept: params.concept
-        }).exec(function(err, num) {
+        }
+        var reply = JSON.parse(params.replies);
+
+
+
+        UserHasActivity.create(objUHA, function recordCreated(err, uHA) {
             if (err) {
-                console.log(err);
+                console.log('error create uha' + err);
+                return res.json(Response.resJson(err.status, null));
             }
 
-            var obj = {
-                user: params.user,
-                activity: params.activity,
-                concept: params.concept
+            var objUHP = {
+                phase: params.phase,
+                user: params.loggedUser
             }
+            UserHasPhase.create(objUHP, function(err, uHP) {
+                if (err) {
+                    console.log('error create uha');
+                    return res.json(Response.resJson(err.status, null));
+                }
+                var replyAux;
+                var repliesResult = [];
+                for (var i = 0; i < reply.length; i++) {
+                    replyAux = reply[i];
+                    var replyObj = {
+                        userHasPhase: uHP.id,
+                        answerText: replyAux.reply,
+                        questionId: replyAux.questionID
+                    }
+                    repliesResult.push(replyObj);
 
-            UserHasActivity.create(obj,function recordCreated (err, uha) {
-            	if(err){
-            		return res.json(Response.resJson(err.status, null));
-            	}
-            	return res.json(Response.resJson('600', null));
-            });
 
-        });
+                }
 
+                Reply.create(repliesResult, function recordCreated(err, replyCreated) {
+                    if (err) {
+                        console.log('error create reply');
+                        return res.json(Response.resJson(err.status, null));
+                    }
+                    return res.json(Response.resJson('600', null));
+                }); //reply
 
+            }); //uhp
+        }); //uha
+  
 
-    }
-
+}
 };

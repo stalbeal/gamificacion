@@ -53,7 +53,7 @@ module.exports = {
         if (!password || !passwordConfirmation || password != passwordConfirmation) {
             var passwordDoesNotMatchError = {
 
-                message: 'Las Contraseñas no son iguales, verifique'
+                message: '602'
             }
             return next({
                 err:passwordDoesNotMatchError
