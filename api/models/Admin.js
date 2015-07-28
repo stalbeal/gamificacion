@@ -11,11 +11,6 @@ module.exports = {
   		fullname: {//nombre completa
             type: 'string',
             required: true
-        
-        }, phoneNumber: { //teléfono
-            type: 'string'
-        }, mobile: { //teléfono
-            type: 'string'
         }, email: {// correo 
             type: 'string',
             required: true, 
@@ -39,7 +34,6 @@ module.exports = {
             delete obj._csrf;
             delete obj.passwordConfirmation;
             delete obj.encryptedPassword;
-            delete obj.admin;
             return obj;
         
         }

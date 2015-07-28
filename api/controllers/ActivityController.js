@@ -93,7 +93,7 @@ module.exports = {
 
     },
     //ya no va
-    addPhase: function(req, res, next) {
+    /*addPhase: function(req, res, next) {
         var activityHasPhase = {
             phase: req.param('phase'),
             activity: req.param('activity')
@@ -107,6 +107,13 @@ module.exports = {
         });
 
 
+    },*/
+    index:function(req, res, next) {
+        Activity.find(function recordsFounded(err, activities) {
+            return res.view({
+                activities:activities
+            });
+        })
     },
     mobileIndex: function(req, res, next) {
         ActivityHasConcept.find().populateAll().exec(function(err, activitiesHasConcept) {

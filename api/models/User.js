@@ -26,6 +26,12 @@ module.exports = {
             type: 'string'
         }, passwordConfirmation: {// contarseña
             type: 'string'        
+        }, userHasActivity:{
+            collection:'UserHasActivity',
+            via:'user'
+        }, userHasPhase:{
+            collection:'UserHasPhase',
+            via:'user'
         },
         //Elimina del modelo cuando es llevado a JSON los datos que estan en delete
         toJSON: function() {

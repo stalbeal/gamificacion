@@ -16,8 +16,6 @@ module.exports = {
         
         var admin = {
             fullname: req.param('fullname') ,
-            phoneNumber: ValidateFields.isNull(req.param('phoneNumber')),
-            mobile: ValidateFields.isNull(req.param('mobile')),
             email: req.param('email'),
             username: req.param('username'),
             password: req.param('password'),
@@ -51,8 +49,6 @@ module.exports = {
         
         var adminNew = {
             fullname: req.param('fullname') ,
-            phoneNumber: ValidateFields.isNull(req.param('phoneNumber')),
-            mobile: ValidateFields.isNull(req.param('mobile')),
             email: req.param('email')
         }
         Admin.update(req.param('id'), adminNew, function adminUpdated (err, admin) {

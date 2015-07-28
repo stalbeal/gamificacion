@@ -28,5 +28,11 @@ module.exports = {
                 concept: concept
             });
         })
+    },index:function(req, res, next) {
+        Concept.find(function recordsFounded(err, concepts) {
+            return res.view({
+                concepts:concepts
+            });
+        })
     }
 };

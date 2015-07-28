@@ -31,10 +31,10 @@ module.exports = {
         description: {
             type: 'string'
         },
-        activityHasPhase: {
+        /*activityHasPhase: {
             collection: 'ActivityHasPhase',
             via: 'phase'
-        },
+        },*/
         phaseType: {
             type: 'string'
         },
@@ -43,6 +43,10 @@ module.exports = {
         },
         question: {
             collection: 'Question',
+            via: 'phase'
+        },
+        userHasPhase: {
+            collection: 'UserHasPhase',
             via: 'phase'
         }
 

@@ -17,20 +17,11 @@ module.exports = {
 
         var user = {
             fullname: req.param('fullname'),
-            birthDate: ValidateFields.isNull(req.param('birthDate')),
-            phoneNumber: ValidateFields.isNull(req.param('phoneNumber')),
-            mobile: ValidateFields.isNull(req.param('mobile')),
             email: req.param('email'),
-            username: req.param('username'),
-            genre: req.param('genre'),
-            address: ValidateFields.isNull(req.param('address')),
+            idNumber: req.param('idNumber'),
             password: req.param('password'),
-            passwordConfirmation: req.param('passwordConfirmation'),
-            height: ValidateFields.isNull(req.param('height')),
-            weight: ValidateFields.isNull(req.param('weight')),
-            description: ValidateFields.isNull(req.param('description')),
-            userImage: null,
-            key: req.param('key')
+            passwordConfirmation: req.param('passwordConfirmation')
+
         }
         if (req.param('password') != null && req.param('passwordConfirmation') != null) {
             /*
@@ -38,27 +29,7 @@ module.exports = {
              */
             User.create(user, function userCreated(err, user) {
                 if (err) {
-                    if (err.err == null) {
-                        var er = 'Alguna de la información que esta tratando de ingresar ya existe en la base de datos, por favor verifique';
-                        if (sails.errorMessage(err) == er) {
-                            var response = {
-                                message: 'El nombre de usuario o el email ingresado ya está en uso, verifique por favor',
-                                user: null
-                            }
-                        } else {
-                            var response = {
-                                message: sails.errorMessage(err),
-                                user: null
-                            }
-                        }
-                        return res.json(response);
-                    } else {
-                        var response = {
-                            message: err.err,
-                            user: null
-                        }
-                        return res.json(response);
-                    }
+                    return res.json(Response.resJson(err.status, null));
                 }
                 /*
                  *Busca el usuario recien creado para el envio de email de bienvenida
@@ -68,75 +39,31 @@ module.exports = {
                     id: idUser
                 }).populateAll().exec(function(err, userToSend) {
                     if (err) {
-
-                        var response = {
-                            message: sails.errorMessage(err),
-                            user: null
-                        }
-                        return res.json(response);
+                        return res.json(Response.resJson(err.status, null));
                     }
+
                     /*
-                     *Busca la informacion de email para el envio de email de bienvenida
+                     *Se crea un registro para el login de usuario
                      */
-                    Email.find(function emailFounded(err, email) {
+                    var userLogin = {
+                        user: userToSend.id
+                    }
+
+                    UserLogin.create(userLogin, function userLoginCreated(err, login) {
                         if (err) {
-                            return next(err);
-                        }
-                        /*
-                         *Se crea un registro para el login de usuario
-                         */
-                        var userLogin = {
-                            user: userToSend.id
+                            return res.json(Response.resJson(err.status, null));
                         }
 
-                        UserLogin.create(userLogin, function userLoginCreated(err, login) {
-                            if (err) {
-                                var er = 'Alguna de la información que esta tratando de ingresar ya existe en la base de datos, por favor verifique';
-                                if (sails.errorMessage(err) == er) {
-                                    var response = {
-                                        message: 'Se encuentra logueado',
-                                        user: null
-                                    }
-                                } else {
-                                    var response = {
-                                        message: sails.errorMessage(err),
-                                        user: null
-                                    }
-                                }
-                                return res.json(response);
-                            }
 
-
-                            var em = email[0];
-                            /*
-                             *Se emplea el servicio SendEmail.sendInviteEmail para el envio del
-                             *email de bienvenida
-                             *Recibe la informacion em, del email registrado para envio de correos
-                             *user.email, el correo del usuario
-                             */
-                            SendEmail.sendInviteEmail(em, user.email);
-
-
-
-                            var response = {
-                                message: 'Éxito',
-                                user: userToSend
-                            }
-                            return res.json(response);
-
-                        });
-
+                        return res.json(Response.resJson('600', userToSend));
 
                     });
+
                 });
 
             });
         } else {
-            var response = {
-                message: "La contraseña no puede ser nula",
-                user: null
-            }
-            return res.json(response);
+            return res.json(Response.resJson('602', null));
         }
 
 
@@ -146,27 +73,15 @@ module.exports = {
     update: function(req, res, next) {
 
 
-        var userNew = {
+
+        var user = {
             fullname: req.param('fullname'),
-            birthDate: ValidateFields.isNull(req.param('birthDate')),
-            phoneNumber: ValidateFields.isNull(req.param('phoneNumber')),
-            genre: req.param('genre'),
-            mobile: ValidateFields.isNull(req.param('mobile')),
-            email: req.param('email'),
-            address: ValidateFields.isNull(req.param('address')),
-            height: ValidateFields.isNull(req.param('height')),
-            weight: ValidateFields.isNull(req.param('weight')),
-            description: ValidateFields.isNull(req.param('description'))
+            email: req.param('email')
 
         }
         User.update(req.param('loggedUser'), userNew, function userUpdated(err, user) {
             if (err) {
-
-                var response = {
-                    message: sails.errorMessage(err),
-                    user: null
-                }
-                return res.json(response);
+                return res.json(Response.resJson(err.status, null));
 
             }
 
@@ -175,17 +90,9 @@ module.exports = {
             }).populateAll().exec(function(err, userToSend) {
 
                 if (err) {
-                    var response = {
-                        message: sails.errorMessage(err),
-                        user: null
-                    }
-                    return res.json(response);
+                    return res.json(Response.resJson(err.status, null));
                 }
-                var response = {
-                    message: 'Éxito',
-                    user: userToSend
-                }
-                return res.json(response);
+                return res.json(Response.resJson('600', userToSend));
             });
 
         });
@@ -249,31 +156,19 @@ module.exports = {
      */
     login: function(req, res, next) {
         User.findOne({
-            username: req.param('username')
+            idNumber: req.param('idNumber')
         }).populateAll().exec(function(err, user) {
             if (err) {
                 return next(err);
             }
             if (!user) {
-                var response = {
-                    message: 'El usuario no existe',
-                    user: null
-                }
-
-                return res.json(response);
+                return res.json(Response.resJson('601', null));
             } else {
-
-
                 bcrypt.compare(req.param('password'), user.encryptedPassword, function passwordsMatch(err, valid) {
                     if (err)
                         return next(err);
                     if (!valid) {
-                        var response = {
-                            message: 'La contraseña no coincide',
-                            user: null
-                        }
-
-                        return res.json(response);
+                        return res.json(Response.resJson('602', null));
                     }
                     //req.session.user = user;
                     //req.session.authenticated = true;
@@ -281,28 +176,12 @@ module.exports = {
                         user: user.id
                     }
 
-
-
-
                     UserLogin.create(userLogin, function userLoginCreated(err, login) {
-                        var error = "Alguna de la información que esta tratando de ingresar ya existe en la base de datos, por favor verifique";
                         if (err) {
-                            var er = 'Alguna de la información que esta tratando de ingresar ya existe en la base de datos, por favor verifique';
-                            if (sails.errorMessage(err) == er) {
-                                var response = {
-                                    message: 'Éxito',
-                                    user: user
-                                }
-                            } else {
-                                var response = {
-                                    message: sails.errorMessage(err),
-                                    user: null
-                                }
-                            }
-                            return res.json(response);
+                            return res.json(Response.resJson(err.status, null));
                         }
 
-                        User.update({
+                        /*  User.update({
                             key: req.param('key')
                         }).exec(function recordUpdated(err, userUpdated) {
                             if (err) {
@@ -311,17 +190,10 @@ module.exports = {
                                     user: null
                                 }
                                 return res.json(response);
-                            }
-                            var response = {
-                                message: 'Éxito',
-                                user: user
-                            }
-                            return res.json(response);
+                            }*/
+                        return res.json(Response.resJson('600', user));
 
-                        });
-
-
-
+                        //});
                     });
 
                 });
@@ -338,14 +210,9 @@ module.exports = {
             user: req.param('loggedUser')
         }).exec(function(err, login) {
             if (err) {
-                var response = {
-                    message: sails.errorMessage(err)
-                }
-
-                return res.json(response);
+                return res.json(Response.resJson(err.status, null));
             }
-
-            User.update({
+            /* User.update({
                 key: null
             }).exec(function recordUpdated(err, userUpdated) {
                 if (err) {
@@ -353,14 +220,10 @@ module.exports = {
                         message: sails.errorMessage(err)
                     }
                     return res.json(response);
-                }
-                var sessionDestroyed = {
-                    message: 'Éxito'
-                }
+                }*/
+            return res.json(Response.resJson('600', null));
 
-                return res.json(sessionDestroyed);
-
-            });
+            //});
 
         });
 
@@ -378,11 +241,7 @@ module.exports = {
                 return res.json(response);
             }
             if (!user) {
-                var response = {
-                    message: 'El usuario no existe'
-                }
-
-                return res.json(response);
+                return res.json(Response.resJson('601', null));
             } else {
 
 
@@ -390,21 +249,14 @@ module.exports = {
                     if (err)
                         return next(err);
                     if (!valid) {
-                        var response = {
-                            message: 'La contraseña no coincide'
-                        }
-
-                        return res.json(response);
+                        return res.json(Response.resJson('602', null));
                     }
 
 
                     var password = req.param('passwordNew');
                     var passwordConfirmation = req.param('passwordConfirmation');
                     if (!password || !passwordConfirmation || password != passwordConfirmation) {
-                        var response = {
-                            message: 'Las contraseñas no son iguales, verifique'
-                        }
-                        return res.json(response);
+                        return res.json(Response.resJson('602', null));
                     }
 
                     require('bcrypt').hash(password, 512, function passwordEncrypted(err, encryptedPassword) {
@@ -416,16 +268,10 @@ module.exports = {
 
                         User.update(req.param('loggedUser'), userNew, function userUpdated(err, userResult) {
                             if (err) {
-                                var response = {
-                                    message: sails.errorMessage(err)
-                                }
-                                return res.json(response);
+                                return res.json(Response.resJson(err.status, null));
                             }
 
-                            var response = {
-                                message: 'Éxito'
-                            }
-                            return res.json(response);
+                            return res.json(Response.resJson('600', null));
                         });
 
 
@@ -443,12 +289,9 @@ module.exports = {
         User.find().populateAll()
             .exec(function(err, userToSend) {
                 if (err) {
-                    var response = {
-                        message: sails.errorMessage(err)
-                    }
-                    return res.json(response);
+                    return res.json(Response.resJson(err.status, null));
                 }
-                return res.json(userToSend);
+                 return res.json(Response.resJson('600', userToSend));
             });
 
     },
@@ -459,18 +302,10 @@ module.exports = {
             email: req.param('email')
         }).populateAll().exec(function(err, user) {
             if (err) {
-                var response = {
-                    message: sails.errorMessage(err),
-                    user: null
-                }
-                return res.json(response);
+                 return res.json(Response.resJson(err.status, null));
             }
             if (!user) {
-                var response = {
-                    messsage: 'No existe el usuario',
-                    user: null
-                }
-                return res.json(response);
+                 return res.json(Response.resJson('605', null));
             } else {
 
                 /*
@@ -481,19 +316,7 @@ module.exports = {
                 }
                 UserLogin.create(userLogin, function userLoginCreated(err, login) {
                     if (err) {
-                        var er = 'Alguna de la información que esta tratando de ingresar ya existe en la base de datos, por favor verifique';
-                        if (sails.errorMessage(err) == er) {
-                            var response = {
-                                message: 'Se encuentra logueado',
-                                user: user
-                            }
-                        } else {
-                            var response = {
-                                message: sails.errorMessage(err),
-                                user: null
-                            }
-                        }
-                        return res.json(response);
+                         return res.json(Response.resJson(err.status, null));
                     }
 
                     var response = {
@@ -604,13 +427,6 @@ module.exports = {
     },
     success: function(req, res, next) {
         res.view();
-    },
-    userreq: function(req, res) {
-
-        var response = {
-            message: 'entre'
-        }
-        res.json(response);
     }
 
 };

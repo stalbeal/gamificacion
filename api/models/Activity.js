@@ -32,6 +32,9 @@ module.exports = {
         activityHasConcept: {
             collection: 'ActivityHasConcept',
             via:'activity'
+        }, userHasActivity:{
+            collection:'UserHasActivity',
+            via:'activity'
         }
     }
 };
