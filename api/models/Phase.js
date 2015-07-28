@@ -36,7 +36,7 @@ module.exports = {
             via: 'phase'
         },
         phaseType: {
-            model: 'PhaseType'
+            type: 'string'
         },
         concept: {
             model: 'Concept'

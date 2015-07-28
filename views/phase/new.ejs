@@ -35,10 +35,12 @@
 			<div class= "form-group">
 				<label>Seleccionar tipo de la fase</label>
 				<select name="phaseType" class="form-control">
-					<% _.each(phaseTypes, function(type) { %>
 					
-					<option value="<%=type.id%>"><%=type.name%></option>
-					<%})%>
+					
+					<option value="0">Responder Preguntas</option>
+					<option value="1">Formular Preguntas</option>
+					<option value="2">Responder Preguntas de los mismos estudiantes </option>
+				
 				</select>
 				
 			</div>

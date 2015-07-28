@@ -35,12 +35,13 @@
 					<textarea type="text" style="border:0; background: white;" name="description" class="form-control"  rows="5" disabled="disabled"><%= activity.description %></textarea>
 					
 				</div>
-				
-				
-				<form method="POST" action="/activity/activityconcept/<%= activity.id %>">
+				<div>		
 					
-					<input type="submit" class="btn btn-primary pull-right"  value="Agregar Concepto" placeholder="">
-				</form>
+					<form method="POST" action="/activity/activityconcept/<%= activity.id %>">
+						
+						<input type="submit" class="btn btn-primary pull-right"  value="Agregar Concepto" placeholder="">
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
