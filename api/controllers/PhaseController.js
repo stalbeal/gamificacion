@@ -89,8 +89,24 @@ module.exports = {
             if(err){
                 return res.json(Response.resJson(err.status, null));
             }
+           /* var phaseAux;
+             var phaseAux2;
+            for(var i=0; i<phases.length;i++){
+                phaseAux=phases[i];
+                if(phaseAux.phaseType=="2"){
+                    Reply.find({phase:phaseAux.id}).exec(function (err, replys) {
+                         for(var j=0; j<phases.length;j++){
 
-            return res.json(Response.resJson('600', phases));
+                            phaseAux2=phases[i];
+                             if(phaseAux2.phaseType=="3"){
+                        phaseAux2.question.push(replys);
+                    }
+                    }
+                    });
+                }
+            }*/
+
+            return res.json(Response.resJson('600', phaseAux));
         });
     }
 

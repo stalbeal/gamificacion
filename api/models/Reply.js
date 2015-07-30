@@ -12,6 +12,9 @@ module.exports = {
         userHasPhase: { //relacion con la tabla intermedia entre usuario y fase
             model: 'UserHasPhase'
         },
+        phase:{
+            type:'string'
+        },
         answerText: {//texto de respuesta
             type: 'string'
         },

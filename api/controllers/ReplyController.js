@@ -25,6 +25,7 @@ module.exports = {
             //Si el usuario no ha completado ninguna fase de la actividad
             //se crea un nuevo registro
             if (uHAFounded == null || uHAFounded == undefined) {
+
                 var objUHA = {
                     user: params.loggedUser,
                     activity: params.activity,
@@ -46,27 +47,51 @@ module.exports = {
                             console.log('error create uha');
                             return res.json(Response.resJson(err.status, null));
                         }
-                        var replyAux;
-                        var repliesResult = [];
-                        for (var i = 0; i < reply.length; i++) {
-                            replyAux = reply[i];
-                            var replyObj = {
-                                userHasPhase: uHP.id,
-                                answerText: replyAux.reply,
-                                questionId: replyAux.questionID
+
+                        Phase.findOne({
+                            activity: params.activity,
+                            concept: params.concept,
+                            phaseType: '3'
+                        }).exec(function(err, phaseType) {
+                            var replyAux;
+                            var repliesResult = [];
+                            var questiosList = [];
+                            for (var i = 0; i < reply.length; i++) {
+                                replyAux = reply[i];
+                                var replyObj = {
+                                    userHasPhase: uHP.id,
+                                    answerText: replyAux.reply,
+                                    questionId: replyAux.questionID
+                                }
+                                repliesResult.push(replyObj);
+                                if (params.type == "2") {
+                                    var questions = {
+
+                                        statement: replyAux.reply,
+                                        description: ValidateFields.isNull(req.param('description')),
+                                        phase: phaseType.id
+                                    }
+                                    questiosList.push(questions);
+                                }
+
+
                             }
-                            repliesResult.push(replyObj);
 
+                            Reply.create(repliesResult, function recordCreated(err, replyCreated) {
+                                if (err) {
+                                    console.log('error create reply');
+                                    return res.json(Response.resJson(err.status, null));
+                                }
+                                if (phaseType != null || phaseType != undefined) {
+                                    Question.create(questiosList, function recordCreated(err, question) {
 
-                        }
-
-                        Reply.create(repliesResult, function recordCreated(err, replyCreated) {
-                            if (err) {
-                                console.log('error create reply');
-                                return res.json(Response.resJson(err.status, null));
-                            }
-                            return res.json(Response.resJson('600', null));
-                        }); //reply
+                                        return res.json(Response.resJson('600', null));
+                                    });
+                                } else {
+                                    return res.json(Response.resJson('600', null));
+                                }
+                            }); //reply
+                        }); //phase
 
                     }); //uhp
                 }); //uha
@@ -83,38 +108,59 @@ module.exports = {
                         console.log('error create uha');
                         return res.json(Response.resJson(err.status, null));
                     }
-                    var replyAux;
-                    var repliesResult = [];
-                    for (var i = 0; i < reply.length; i++) {
-                        replyAux = reply[i];
-                        var replyObj = {
-                            userHasPhase: uHP.id,
-                            answerText: replyAux.reply,
-                            questionId: replyAux.questionID
+                    Phase.findOne({
+                        activity: params.activity,
+                        concept: params.concept,
+                        phaseType: '3'
+                    }).exec(function(err, phaseType) {
+
+
+                        var replyAux;
+                        var repliesResult = [];
+                        var questiosList = [];
+                        for (var i = 0; i < reply.length; i++) {
+                            replyAux = reply[i];
+                            var replyObj = {
+                                userHasPhase: uHP.id,
+                                answerText: replyAux.reply,
+                                questionId: replyAux.questionID,
+                                phase: params.phase
+                            }
+                            repliesResult.push(replyObj);
+
+                            if (params.type == "2") {
+                                var questions = {
+
+                                    statement: replyAux.reply,
+                                    description: ValidateFields.isNull(req.param('description')),
+                                    phase: phaseType.id
+                                }
+                                questiosList.push(questions);
+                            }
                         }
-                        repliesResult.push(replyObj);
 
 
-                    }
+                        Reply.create(repliesResult, function recordCreated(err, replyCreated) {
+                            if (err) {
+                                console.log('error create reply');
+                                return res.json(Response.resJson(err.status, null));
+                            }
+                            if (phaseType != null || phaseType != undefined) {
+                                Question.create(questiosList, function recordCreated(err, question) {
 
-                    Reply.create(repliesResult, function recordCreated(err, replyCreated) {
-                        if (err) {
-                            console.log('error create reply');
-                            return res.json(Response.resJson(err.status, null));
-                        }
-                        return res.json(Response.resJson('600', null));
-                    }); //reply
+                                    return res.json(Response.resJson('600', null));
+                                });
+                            } else {
+                                return res.json(Response.resJson('600', null));
+                            }
+                        }); //reply
+                    }); //phase
 
                 }); //uhp
 
 
             }
-
-
-
-
         }); //finduha
-
-
     }
+
 };
