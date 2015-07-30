@@ -106,7 +106,7 @@ module.exports = {
                 }
             }*/
 
-            return res.json(Response.resJson('600', phaseAux));
+            return res.json(Response.resJson('600', phases));
         });
     }
 

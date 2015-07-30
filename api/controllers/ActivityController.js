@@ -139,7 +139,6 @@ module.exports = {
 
                 }
             }
-
             return res.json(Response.resJson('600', act));
 
 
