@@ -51,7 +51,7 @@ module.exports = {
                         Phase.findOne({
                             activity: params.activity,
                             concept: params.concept,
-                            phaseType: '3'
+                            phaseType: '2'
                         }).exec(function(err, phaseType) {
                             var replyAux;
                             var repliesResult = [];
@@ -64,7 +64,7 @@ module.exports = {
                                     questionId: replyAux.questionID
                                 }
                                 repliesResult.push(replyObj);
-                                if (params.type == "2") {
+                                if (params.type == "1") {
                                     var questions = {
 
                                         statement: replyAux.reply,
@@ -111,7 +111,7 @@ module.exports = {
                     Phase.findOne({
                         activity: params.activity,
                         concept: params.concept,
-                        phaseType: '3'
+                        phaseType: '2'
                     }).exec(function(err, phaseType) {
 
 
@@ -128,7 +128,7 @@ module.exports = {
                             }
                             repliesResult.push(replyObj);
 
-                            if (params.type == "2") {
+                            if (params.type == "1") {
                                 var questions = {
 
                                     statement: replyAux.reply,
