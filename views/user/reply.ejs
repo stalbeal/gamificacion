@@ -11,19 +11,20 @@ $(document).ready(function() {
 	$('table').filterTable({ // apply filterTable to all tables on this page
 	inputSelector: '#input-filter' 
 	});
-	
-	
 });
 </script>
-
 
 
 	<div class="row clearfix">
 		<div class="col-md-10 col-md-offset-1">
 			
-			
-			<legend > Usuarios</legend>
 
+			
+			<legend >Resolución de las fases</legend>
+
+			<% _.each(replies, function(reply) { %>
+
+			<h3>Solución Fase <%=reply.phase.identifier%> <%=reply.phase.name%></h3>
 			<div class="col-sm-12" style="overflow: auto;  ">
 			<row>
 			<div class="col-md-4 col-md-offset-8">
@@ -37,10 +38,9 @@ $(document).ready(function() {
 
 					<thead >
 					
-					<th width="30%">Nombre Completo</th>
-					<th width="15%">Identificación</th>
-					<th width="20%">E-mail</th>
-					
+					<th width="">Respuesta</th>
+					<th width="15%">Fecha</th>
+									
 						
 					<th width="20%" colspan="2" class="text-center">Acciones</th>
 					</thead>
@@ -49,33 +49,21 @@ $(document).ready(function() {
 
 				<div class="col-sm-12" style="overflow: auto; height: 500px;">
 				<table id="table"  class="table table-striped" >
-				<% _.each(users, function(user) { %>
+				<% _.each(reply.reply, function(rep) {  %>
 					<tr>
 						
-						<td width="32%"><%=user.fullname%> </td>
-						<td width="15%"><%=user.idNumber%></td>
-						<td width="20%"><%=user.email%> </td>
+						<td width=""><%=rep.answerText%> </td>
+						<td width="15%"><%=rep.createdAt%></td>
+						
 						<td width="20%" colspan="4">
-							<center><a href="/user/show/<%=user.id%>" style="text-decoration: none; color: blue;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-
-							<a href="/user/replybyuser/<%=user.id%>" style="text-decoration: none; color: green;"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
-							<!--
-						
-							<a class="open-modal" href="/user/destroy/<%=user.id%>" style="text-decoration: none; color: red;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							</a>
-
-							-->
-						
-							</center>
+							<!-- <center><a href="/user/reply/" style="text-decoration: none; color: blue;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+							</center> -->
 						</td>
 					</tr>
 					<%})%>
 				</table>
 				
-				
-			
-				
-				
 			</div>
+			<%})%>
 		</div>
 	</div>

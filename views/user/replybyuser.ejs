@@ -17,12 +17,11 @@ $(document).ready(function() {
 </script>
 
 
-
 	<div class="row clearfix">
 		<div class="col-md-10 col-md-offset-1">
 			
 			
-			<legend > Usuarios</legend>
+			<legend >Actividades Por Participante</legend>
 
 			<div class="col-sm-12" style="overflow: auto;  ">
 			<row>
@@ -37,9 +36,11 @@ $(document).ready(function() {
 
 					<thead >
 					
-					<th width="30%">Nombre Completo</th>
-					<th width="15%">Identificación</th>
-					<th width="20%">E-mail</th>
+					<th width="10%">Identificador</th>
+					<th width="30%">Nombre</th>
+					<th width="20%">Fecha inicio</th>
+					<th width="20%">Fecha fin</th>
+					
 					
 						
 					<th width="20%" colspan="2" class="text-center">Acciones</th>
@@ -49,32 +50,24 @@ $(document).ready(function() {
 
 				<div class="col-sm-12" style="overflow: auto; height: 500px;">
 				<table id="table"  class="table table-striped" >
-				<% _.each(users, function(user) { %>
+				<% _.each(userHasActivities, function(uHActivity) { %>
 					<tr>
 						
-						<td width="32%"><%=user.fullname%> </td>
-						<td width="15%"><%=user.idNumber%></td>
-						<td width="20%"><%=user.email%> </td>
+						<td width="10%"><%=uHActivity.activity.idNumber%> </td>
+						<td width="30%"><%=uHActivity.activity.name%></td>
+						<td width="20%"><%=uHActivity.activity.startDate%></td>
+						<td width="20%"><%=uHActivity.activity.endDate%> </td>
 						<td width="20%" colspan="4">
-							<center><a href="/user/show/<%=user.id%>" style="text-decoration: none; color: blue;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-
-							<a href="/user/replybyuser/<%=user.id%>" style="text-decoration: none; color: green;"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
-							<!--
+							<center><a href="/user/reply/<%=uHActivity.user.id%>" style="text-decoration: none; color: blue;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 						
-							<a class="open-modal" href="/user/destroy/<%=user.id%>" style="text-decoration: none; color: red;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							</a>
-
-							-->
+														
+							
 						
 							</center>
 						</td>
 					</tr>
 					<%})%>
 				</table>
-				
-				
-			
-				
 				
 			</div>
 		</div>

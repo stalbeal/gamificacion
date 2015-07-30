@@ -293,7 +293,7 @@ module.exports = {
                 if (err) {
                     return res.json(Response.resJson(err.status, null));
                 }
-                 return res.json(Response.resJson('600', userToSend));
+                return res.json(Response.resJson('600', userToSend));
             });
 
     },
@@ -304,10 +304,10 @@ module.exports = {
             email: req.param('email')
         }).populateAll().exec(function(err, user) {
             if (err) {
-                 return res.json(Response.resJson(err.status, null));
+                return res.json(Response.resJson(err.status, null));
             }
             if (!user) {
-                 return res.json(Response.resJson('605', null));
+                return res.json(Response.resJson('605', null));
             } else {
 
                 /*
@@ -318,7 +318,7 @@ module.exports = {
                 }
                 UserLogin.create(userLogin, function userLoginCreated(err, login) {
                     if (err) {
-                         return res.json(Response.resJson(err.status, null));
+                        return res.json(Response.resJson(err.status, null));
                     }
 
                     var response = {
@@ -429,6 +429,28 @@ module.exports = {
     },
     success: function(req, res, next) {
         res.view();
+    },
+    replybyuser: function(req, res, next) {
+
+        UserHasActivity.find({
+            user: req.param('id')
+        }).populateAll().exec(function(err, activities) {
+
+            return res.view({
+                userHasActivities:activities
+            })
+            //return res.json(activities);
+        });
+    },reply: function(req, res, next) {
+
+        UserHasPhase.find({
+            user: req.param('id')
+        }).populateAll().exec(function(err, replies) {
+            console.log(replies[0].reply[0].answerText);
+            
+            return res.view({replies:replies});
+            //return res.json(replies);
+        });
     }
 
 };
